@@ -44,7 +44,7 @@ class Product(models.Model):
 
                 return self.thumbnail.url
             else:
-                return 'https://via.placeholder.com/240x180.jpg'
+                return 'https://res.cloudinary.com/dz4gcmsly'
     
     def make_thumbnail(self, image, size=(300, 200)):
         img = Image.open(image)

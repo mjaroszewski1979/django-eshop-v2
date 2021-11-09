@@ -13,6 +13,9 @@ import cloudinary
 import cloudinary_storage
 from pathlib import Path
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -146,11 +149,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+<<<<<<< HEAD
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dz4gcmsly',
     'API_KEY': '956499589989435',
     'API_SECRET': 'TqQ1xyvFVLatHQa22bd1HX1-Vj8',
 }
+=======
+
+
+cloudinary.config( 
+  cloud_name = "dz4gcmsly", 
+  api_key = "956499589989435", 
+  api_secret = "TqQ1xyvFVLatHQa22bd1HX1-Vj8",
+  secure = True
+)
+>>>>>>> a8926ee (added cloudinary)
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
@@ -162,9 +176,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = ''
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -1,1 +1,0 @@
-# django-eshop-v2

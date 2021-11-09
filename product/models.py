@@ -1,8 +1,10 @@
 from io import BytesIO
 from PIL import Image
+from cloudinary.models import CloudinaryField
 
 from django.core.files import File
 from django.db import models
+
 
 from vendor.models import Vendor
 
@@ -25,8 +27,8 @@ class Product(models.Model):
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     date_added = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='uploads/', blank=True, null=True)
-    thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
+    image = CloudinaryField('image')
+    thumbnail = CloudinaryField('thumbnail')
 
     class Meta:
         ordering = ['-date_added']

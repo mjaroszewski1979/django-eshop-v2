@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-import cloudinary
+
 import cloudinary_storage
 from pathlib import Path
 import os
@@ -149,11 +149,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dz4gcmsly',
-    'API_KEY': '956499589989435',
-    'API_SECRET': 'TqQ1xyvFVLatHQa22bd1HX1-Vj8',
-}
 
 
 

@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ybr1!5t_($6mblz=+uil5r4mi(87_!b1_@@9d7x*2=)(x89er3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django-eshop-v1.herokuapp.com', '127.0.0.1']
 
 STRIPE_PUB_KEY = 'pk_test_51JrSpgDKTx5YbiXUhBJreNPNJl897vsC2VY5xJZUXtPPFm3fsZoc9IE2EUlckBFBCK5papnrEhk07UHfbGjMRAcT00yq3gwOyV'
 STRIPE_SECRET_KEY = 'sk_test_51JrSpgDKTx5YbiXUF7dA8dM3MXAyPoJYRlp4yzUXPp9gvbiODQBmZbU234AP5aZ9urjuI1XshDhLey1p1AOhIfn400ZFdLaEx1'
@@ -70,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'interiorshop.urls'
@@ -77,7 +78,7 @@ ROOT_URLCONF = 'interiorshop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,6 +144,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')

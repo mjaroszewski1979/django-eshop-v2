@@ -1,1 +1,1 @@
-web: gunicorn interiorshop.interiorshop.wsgi:application
+web: gunicorn interiorshop.wsgi:application

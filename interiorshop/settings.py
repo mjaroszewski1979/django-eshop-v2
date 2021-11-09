@@ -65,7 +65,6 @@ INSTALLED_APPS = [
     'product',
     'vendor',
     'cloudinary',
-    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -149,13 +148,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-<<<<<<< HEAD
+
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dz4gcmsly',
     'API_KEY': '956499589989435',
     'API_SECRET': 'TqQ1xyvFVLatHQa22bd1HX1-Vj8',
 }
-=======
+
 
 
 cloudinary.config( 
@@ -164,7 +163,7 @@ cloudinary.config(
   api_secret = "TqQ1xyvFVLatHQa22bd1HX1-Vj8",
   secure = True
 )
->>>>>>> a8926ee (added cloudinary)
+
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 

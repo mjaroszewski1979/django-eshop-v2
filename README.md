@@ -5,9 +5,11 @@
 
 ### Features
 * Using Bulma CSS framework to implement its built-in frontend components
-* Displaying custom templates in case of handling 404 and 500 status code errors
+* Working with template inheritance mechanism to build a base “skeleton” template that contains all the common elements and defines blocks that child templates can override
+* Implementing secure user authentication system which handles user accounts, manages cookies, user groups, and sessions, and keeps track of permissions
+* Taking full advantage of Django's built-in features like cross-site request forgery protection to ensure safe data transfer in web forms to a database
 * Storing app’s secure credentials in environment variables
-* Using unittest library to perform unit tests and selenium for functional tests
+
 
 --------------------------------------------------
 

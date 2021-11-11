@@ -11,7 +11,7 @@
 * Associating multiple records in a table with multiple records in another table ( many-to-many relationship ) to achieve optimal ORM performance
 * Breaking logic into smaller parts by adding various new Django applications to an existing project 
 * Writing as much functionality as possible in models or utility files instead of views 
-* Serving static files with WhiteNoise to accomplish high performance and efficiency without relying on nginx, Amazon S3 or any other external service
+* Serving static files with WhiteNoise to accomplish high performance and efficiency without depending on nginx, Amazon S3 or any other external service
 * Relying on Cloudinary to provide a secure and comprehensive API for easily uploading media files from server-side code
 * Storing app’s secure credentials in environment variables
 

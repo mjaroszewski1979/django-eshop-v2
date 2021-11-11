@@ -1,5 +1,5 @@
 ## <img src="https://github.com/mjaroszewski1979/mjaroszewski1979/blob/main/e_comm.png">  &nbsp; Urban Style
-### This is a Django e-commerce website powered by Stripe library to provide convenient access to the Stripe API from applications written in the Python language. Its main function is to take full advantage of the custom user model, categories and products to make it possible for the vendors to add merchandise, create accounts and log in.
+### This is a Django e-commerce website powered by Stripe library to provide convenient access to the Stripe API from applications written in the Python language. Its main function is to take full advantage of the custom models for users, categories and products to make it possible for the vendors to add merchandise, create accounts and log in.
 
 --------------------------------------------------
 

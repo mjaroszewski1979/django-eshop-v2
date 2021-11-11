@@ -25,15 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ybr1!5t_($6mblz=+uil5r4mi(87_!b1_@@9d7x*2=)(x89er3'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = ['django-eshop-v1.herokuapp.com', '127.0.0.1']
 
-STRIPE_PUB_KEY = 'pk_test_51JrSpgDKTx5YbiXUhBJreNPNJl897vsC2VY5xJZUXtPPFm3fsZoc9IE2EUlckBFBCK5papnrEhk07UHfbGjMRAcT00yq3gwOyV'
-STRIPE_SECRET_KEY = 'sk_test_51JrSpgDKTx5YbiXUF7dA8dM3MXAyPoJYRlp4yzUXPp9gvbiODQBmZbU234AP5aZ9urjuI1XshDhLey1p1AOhIfn400ZFdLaEx1'
+STRIPE_PUB_KEY = os.environ.get('STRIPE_PUB_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'vendor_admin'
@@ -43,8 +43,8 @@ SEESION_COOKIE_AGE = 86400
 CART_SESSION_ID = 'cart'
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'mjaropraca@gmail.com'
-EMAIL_HOST_PASSWORD = 'howvqzitqpoeymiq'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_EMAIL_FROM = 'interiorshop'
@@ -153,9 +153,9 @@ USE_TZ = True
 
 
 cloudinary.config( 
-  cloud_name = "dz4gcmsly", 
-  api_key = "956499589989435", 
-  api_secret = "TqQ1xyvFVLatHQa22bd1HX1-Vj8",
+  cloud_name = os.environ.get('cloud_name'), 
+  api_key = os.environ.get('api_key'), 
+  api_secret = os.environ.get('api_secret'),
   secure = True
 )
 

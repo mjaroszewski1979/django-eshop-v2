@@ -3,7 +3,7 @@
 
 --------------------------------------------------
 
-### Features
+### Features:
 * Using Bulma CSS framework to implement its built-in frontend components
 * Working with template inheritance mechanism to build a base “skeleton” template that contains all the common elements and defines blocks that child templates can override
 * Implementing secure user authentication system which handles user accounts, manages cookies, user groups, and sessions, and keeps track of permissions

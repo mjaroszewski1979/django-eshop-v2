@@ -1,6 +1,6 @@
-## <img src="https://github.com/mjaroszewski1979/mjaroszewski1979/blob/main/e_comm.png">  &nbsp; Google Scraper
-### This is a Python/Django application powered by requests-HTML library to provide an efficient way to parsing HTML documents using CSS Selectors. Its main function is to query Google.com using the following set of queries: web address {keyword}. 
-#### The main risk associated with using such a program is getting blocked while scraping by sending repetitive requests from the same IP. To avoid this, future improvements can be made, for example by using rotating proxies. A rotating proxy is a proxy server that allocates a new IP address from a set of proxies stored in the proxy pool. The purpose behind using the concept of rotating IPs is to make it look that you’re not a bot but a human, accessing data from different locations from different parts of the world. When we scrape data using an automated scraper, the scraper scrapes the data at an inhuman speed which is easily detected by anti-scrapers plugins. By adding random delays and actions to our scraper we can make it resemble a human, so the website owners don’t detect it. Logging into the same website at different day times also reduces your footprint.
+## <img src="https://github.com/mjaroszewski1979/mjaroszewski1979/blob/main/e_comm.png">  &nbsp; Urban Style
+### This is a Django e-commerce website powered by Stripe library to provide convenient access to the Stripe API from applications written in the Python language. Its main function is to take full advantage of the custom user model, categories and products to make it possible for the vendors to add products, create accounts and log in.
+
 --------------------------------------------------
 
 ### Features

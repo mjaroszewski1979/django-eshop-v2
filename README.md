@@ -4,11 +4,7 @@
 --------------------------------------------------
 
 ### Features
-* CSS Flexbox applied to simplify complex layout structure
-* Fully responsive navigation menu 
-* CSS custom variables for fast and forward-looking design 
-* HTML and CSS minification process aims to reduce webpage loading speed 
-* Embedded Font Awesome icon collection 
+* Using Bulma CSS framework to implement its built-in frontend components
 * Displaying custom templates in case of handling 404 and 500 status code errors
 * Storing app’s secure credentials in environment variables
 * Using unittest library to perform unit tests and selenium for functional tests

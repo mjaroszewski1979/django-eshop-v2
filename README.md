@@ -8,6 +8,9 @@
 * Working with template inheritance mechanism to build a base “skeleton” template that contains all the common elements and defines blocks that child templates can override
 * Implementing secure user authentication system which handles user accounts, manages cookies, user groups, and sessions, and keeps track of permissions
 * Taking full advantage of Django's built-in features like cross-site request forgery protection to ensure safe data transfer in web forms to a database
+* Associating multiple records in a table with multiple records in another table ( many-to-many relationship ) to achieve optimal ORM performance
+* Breaking logic into smaller parts by adding various new Django applications to an existing project 
+* Writing as much functionality as possible in models or utility files instead of views 
 * Storing app’s secure credentials in environment variables
 
 

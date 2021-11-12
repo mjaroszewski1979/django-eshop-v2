@@ -18,6 +18,10 @@
 
 --------------------------------------------------
 
+### Docker info:
+* Pull an image from my Docker Hub - https://hub.docker.com/r/maciej1245/urbanstyle
+
+
 ![caption](https://github.com/mjaroszewski1979/django-eshop-v2/blob/main/urban_style.gif)
   
   Live | Code | Docker | Technologies

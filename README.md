@@ -28,7 +28,6 @@
 docker run -p 8000:8000 -e STRIPE_PUB_KEY="<your stripe public key>" -e STRIPE_SECRET_KEY="<your stripe secret key>" -e EMAIL_HOST_USER="<your email host user>" -e EMAIL_HOST_PASSWORD="<your email host password>" <imagename>
 
 ```
-  * 
    * or using .env file
 
 

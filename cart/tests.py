@@ -24,7 +24,7 @@ class CartTest(TestCase):
         self.assertIsInstance(response.context['form'], CheckoutForm)
         self.assertEquals(response.context['stripe_pub_key'], stripe_pub_key)
 
-    def test_cart_detail_post_no_items(self):
+    def test_cart_detail_post(self):
         response = self.client.post(reverse('cart'), {
             'first_name' : 'maciej',
             'last_name' : 'jaroszewski',
@@ -36,6 +36,24 @@ class CartTest(TestCase):
             'cardnumber' : '4242424242424242',
             'exp-date' : '1222',
             'cvc' : '123'
-        })
-        self.assertContains(response, "You don't have any products in your cart!", status_code=200)
-        self.assertTemplateUsed(response, 'cart/cart.html')
+        }, follow=True)
+        self.assertEquals(response.status_code, 200)
+
+    def test_checkoutform_valid_data(self):
+        data = {
+            'first_name' : 'maciej',
+            'last_name' : 'jaroszewski',
+            'email' : 'maciej@gmail.com',
+            'phone' : '111222333',
+            'address' : 'poznan',
+            'zipcode' : '123456',
+            'place' : 'poland',
+            'stripe_token' : '123456789'
+        }
+        form = CheckoutForm(data)
+        self.assertTrue(form.is_valid())
+
+    def test_checkoutform_no_valid_data(self):
+        data = {}
+        form = CheckoutForm(data)
+        self.assertFalse(form.is_valid())

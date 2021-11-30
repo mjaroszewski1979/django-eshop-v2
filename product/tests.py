@@ -93,6 +93,10 @@ class ProductTest(TestCase):
         self.assertIsNotNone(response.context['category'])
         self.assertEquals(response.context['category'], self.new_category)
 
+    def test_product_url_is_resolved(self):
+        url = reverse('product',args= (self.new_category.slug, self.new_product.slug))
+        self.assertEquals(resolve(url).func, product)
+
     def test_product_get(self):
         response = self.client.get(reverse('product', args= (self.new_category.slug, self.new_product.slug)))
         product = get_object_or_404(Product, category__slug=self.new_category.slug, slug=self.new_product.slug)

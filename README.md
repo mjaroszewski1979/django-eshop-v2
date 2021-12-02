@@ -14,6 +14,7 @@
 * Serving static files with WhiteNoise to accomplish high performance and efficiency without depending on nginx, Amazon S3 or any other external service
 * Relying on Cloudinary to provide a secure and comprehensive API for easily uploading media files from server-side code
 * Storing app’s secure credentials in environment variables
+* Utilizing setUpModule() to handle especially expensive setup operations for all of the tests within a module
 
 
 --------------------------------------------------

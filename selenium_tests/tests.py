@@ -8,7 +8,7 @@ from django.urls import reverse
 class TestUrbanStyle(StaticLiveServerTestCase):
 
     def setUp(self):
-        self.browser = webdriver.Chrome('interiorshop/chromedriver.exe')
+        self.browser = webdriver.Chrome('selenium_tests/chromedriver.exe')
 
     def tearDown(self):
         self.browser.close()
@@ -145,8 +145,8 @@ class TestUrbanStyle(StaticLiveServerTestCase):
         username = self.browser.find_element_by_name('username')
         password = self.browser.find_element_by_name('password')
         login = self.browser.find_element_by_class_name('vendor-login')
-        username.send_keys('tomek')
-        password.send_keys('haslo123')
+        username.send_keys('newuser')
+        password.send_keys('topsecret123')
         login.click()
         time.sleep(5)
         self.assertEquals(
@@ -161,16 +161,66 @@ class TestUrbanStyle(StaticLiveServerTestCase):
             'Welcome | URBAN STYLE'
         )
 
- 
+    def test_edit_vendor_page(self):
+        self.browser.get('http://127.0.0.1:8000/vendors/login/')
+        username = self.browser.find_element_by_name('username')
+        password = self.browser.find_element_by_name('password')
+        login = self.browser.find_element_by_class_name('vendor-login')
+        username.send_keys('newuser')
+        password.send_keys('topsecret123')
+        login.click()
+        time.sleep(5)
+        edit = self.browser.find_element_by_class_name('edit-vendor')
+        edit.click()
+        self.assertEquals(
+            self.browser.title,
+            'Edit vendor | URBAN STYLE'
+        )
 
+    def test_edit_vendor_email(self):
+        self.browser.get('http://127.0.0.1:8000/vendors/login/')
+        username = self.browser.find_element_by_name('username')
+        password = self.browser.find_element_by_name('password')
+        login = self.browser.find_element_by_class_name('vendor-login')
+        username.send_keys('newuser')
+        password.send_keys('topsecret123')
+        login.click()
+        time.sleep(5)
+        edit = self.browser.find_element_by_class_name('edit-vendor')
+        edit.click()
+        time.sleep(5)
+        email_field = self.browser.find_element_by_name('email')
+        email_field.send_keys('newuser@gmail.com')
+        submit = self.browser.find_element_by_class_name('edit-save')
+        submit.click()
+        time.sleep(5)
+        self.assertEquals(
+            self.browser.title,
+            'Vendor admin | URBAN STYLE'
+        )
 
-
-
-
-
-
-
-
-      
-
-    
+    def test_edit_vendor_email_vendors_list(self):
+        self.browser.get('http://127.0.0.1:8000/vendors/login/')
+        username = self.browser.find_element_by_name('username')
+        password = self.browser.find_element_by_name('password')
+        login = self.browser.find_element_by_class_name('vendor-login')
+        username.send_keys('newuser')
+        password.send_keys('topsecret123')
+        login.click()
+        time.sleep(5)
+        edit = self.browser.find_element_by_class_name('edit-vendor')
+        edit.click()
+        time.sleep(5)
+        email_field = self.browser.find_element_by_name('email')
+        email_field.send_keys('style_')
+        submit = self.browser.find_element_by_class_name('edit-save')
+        submit.click()
+        time.sleep(5)
+        self.browser.find_element_by_class_name('vendors').click()
+        time.sleep(5)
+        address_list = self.browser.find_elements_by_tag_name('address')
+        address = address_list[2]
+        self.assertEquals(
+            address.text,
+            'STYLE_URBAN_NEWUSER@GMAIL.COM'
+        )

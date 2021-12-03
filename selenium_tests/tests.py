@@ -2,16 +2,42 @@ from selenium import webdriver
 import time
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
+from product.models import Product, Category
+from django.contrib.auth.forms import UserCreationForm
+from vendor.models import Vendor
 
 
-
-class TestUrbanStyle(StaticLiveServerTestCase):
+class UrbanTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome('selenium_tests/chromedriver.exe')
+        self.new_category = Category.objects.create(title='shoes', slug='shoes')
+        self.new_category.save()
+        credentials={
+        'username' : 'maciej',
+        'password1' : 'jaroszewski123',
+        'password2' : 'jaroszewski123'
+    }
+        self.form = UserCreationForm(credentials)
+        self.user = self.form.save()
+        self.new_vendor = Vendor.objects.create(name=self.user.username, created_by=self.user)
+        self.pk =self.new_vendor.id
+        self.new_vendor.save()
+        self.vendor_1 = Vendor.objects.get(id=self.pk)
+        self.new_product = Product(
+            category = self.new_category,
+            vendor = self.vendor_1,
+            title = 'nike',
+            slug = 'nike',
+            description = 'red snickers',
+            price = 100
+        )
+        self.new_product.save()
+
 
     def tearDown(self):
         self.browser.close()
+
 
     def test_frontpage_view_is_displayed(self):
         self.browser.get(self.live_server_url)
@@ -97,7 +123,8 @@ class TestUrbanStyle(StaticLiveServerTestCase):
         )
 
     def test_search_page(self):
-        self.browser.get('http://127.0.0.1:8000/products/search/?query=red')
+        self.browser.get('%s%s' % (self.live_server_url, ('/products/search/' + '?query=red')))
+        time.sleep(5)
         search_term = self.browser.find_element_by_class_name('search-term')
         self.assertEquals(
             search_term.text,
@@ -105,12 +132,12 @@ class TestUrbanStyle(StaticLiveServerTestCase):
         )
 
     def test_login_page(self):
-        self.browser.get('http://127.0.0.1:8000/vendors/login/')
+        self.browser.get('%s%s' % (self.live_server_url, '/vendors/login/'))
         username = self.browser.find_element_by_name('username')
         password = self.browser.find_element_by_name('password')
         login = self.browser.find_element_by_class_name('vendor-login')
-        username.send_keys('tomek')
-        password.send_keys('haslo123')
+        username.send_keys('maciej')
+        password.send_keys('jaroszewski123')
         login.click()
         time.sleep(10)
         vendor_admin = self.browser.find_element_by_class_name('vendor-admin')
@@ -120,7 +147,7 @@ class TestUrbanStyle(StaticLiveServerTestCase):
         )
 
     def test_become_vendor_page(self):
-        self.browser.get('http://127.0.0.1:8000/vendors/become_vendor/')
+        self.browser.get('%s%s' % (self.live_server_url, '/vendors/become_vendor/'))
         username = self.browser.find_element_by_name('username')
         password1 = self.browser.find_element_by_name('password1')
         password2 = self.browser.find_element_by_name('password2')
@@ -141,12 +168,12 @@ class TestUrbanStyle(StaticLiveServerTestCase):
         )
 
     def test_logout_page(self):
-        self.browser.get('http://127.0.0.1:8000/vendors/login/')
+        self.browser.get('%s%s' % (self.live_server_url, '/vendors/login/'))
         username = self.browser.find_element_by_name('username')
         password = self.browser.find_element_by_name('password')
         login = self.browser.find_element_by_class_name('vendor-login')
-        username.send_keys('newuser')
-        password.send_keys('topsecret123')
+        username.send_keys('maciej')
+        password.send_keys('jaroszewski123')
         login.click()
         time.sleep(5)
         self.assertEquals(
@@ -162,12 +189,12 @@ class TestUrbanStyle(StaticLiveServerTestCase):
         )
 
     def test_edit_vendor_page(self):
-        self.browser.get('http://127.0.0.1:8000/vendors/login/')
+        self.browser.get('%s%s' % (self.live_server_url, '/vendors/login/'))
         username = self.browser.find_element_by_name('username')
         password = self.browser.find_element_by_name('password')
         login = self.browser.find_element_by_class_name('vendor-login')
-        username.send_keys('newuser')
-        password.send_keys('topsecret123')
+        username.send_keys('maciej')
+        password.send_keys('jaroszewski123')
         login.click()
         time.sleep(5)
         edit = self.browser.find_element_by_class_name('edit-vendor')
@@ -178,19 +205,19 @@ class TestUrbanStyle(StaticLiveServerTestCase):
         )
 
     def test_edit_vendor_email(self):
-        self.browser.get('http://127.0.0.1:8000/vendors/login/')
+        self.browser.get('%s%s' % (self.live_server_url, '/vendors/login/'))
         username = self.browser.find_element_by_name('username')
         password = self.browser.find_element_by_name('password')
         login = self.browser.find_element_by_class_name('vendor-login')
-        username.send_keys('newuser')
-        password.send_keys('topsecret123')
+        username.send_keys('maciej')
+        password.send_keys('jaroszewski123')
         login.click()
         time.sleep(5)
         edit = self.browser.find_element_by_class_name('edit-vendor')
         edit.click()
         time.sleep(5)
         email_field = self.browser.find_element_by_name('email')
-        email_field.send_keys('newuser@gmail.com')
+        email_field.send_keys('maciej@gmail.com')
         submit = self.browser.find_element_by_class_name('edit-save')
         submit.click()
         time.sleep(5)
@@ -200,27 +227,27 @@ class TestUrbanStyle(StaticLiveServerTestCase):
         )
 
     def test_edit_vendor_email_vendors_list(self):
-        self.browser.get('http://127.0.0.1:8000/vendors/login/')
+        self.browser.get('%s%s' % (self.live_server_url, '/vendors/login/'))
         username = self.browser.find_element_by_name('username')
         password = self.browser.find_element_by_name('password')
         login = self.browser.find_element_by_class_name('vendor-login')
-        username.send_keys('newuser')
-        password.send_keys('topsecret123')
+        username.send_keys('maciej')
+        password.send_keys('jaroszewski123')
         login.click()
         time.sleep(5)
         edit = self.browser.find_element_by_class_name('edit-vendor')
         edit.click()
         time.sleep(5)
         email_field = self.browser.find_element_by_name('email')
-        email_field.send_keys('style_')
+        email_field.send_keys('maciej@gmail.com')
         submit = self.browser.find_element_by_class_name('edit-save')
         submit.click()
         time.sleep(5)
         self.browser.find_element_by_class_name('vendors').click()
         time.sleep(5)
         address_list = self.browser.find_elements_by_tag_name('address')
-        address = address_list[2]
+        address = address_list[-1]
         self.assertEquals(
             address.text,
-            'STYLE_URBAN_NEWUSER@GMAIL.COM'
+            'MACIEJ@GMAIL.COM'
         )

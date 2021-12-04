@@ -11,6 +11,7 @@ class UrbanTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome('selenium_tests/chromedriver.exe')
+        self.browser.set_window_size(1920, 1080)
         self.new_category = Category.objects.create(title='shoes', slug='shoes')
         self.new_category.save()
         credentials={
@@ -250,4 +251,85 @@ class UrbanTest(StaticLiveServerTestCase):
         self.assertEquals(
             address.text,
             'MACIEJ@GMAIL.COM'
+        )
+
+    def test_adding_product_to_cart(self):
+        self.browser.get(self.live_server_url)
+        time.sleep(2)
+        self.browser.find_element_by_class_name('button-frontpage').click()
+        time.sleep(2)
+        self.browser.find_element_by_class_name('add-to-cart').click()
+        time.sleep(2)
+        self.browser.find_element_by_class_name('cart').click()
+        time.sleep(2)
+        self.assertEquals(
+            self.browser.title,
+            'Cart | URBAN STYLE'
+        )
+
+    def test_adding_multiple_products_to_cart(self):
+        self.browser.get(self.live_server_url)
+        time.sleep(2)
+        self.browser.find_element_by_class_name('button-frontpage').click()
+        time.sleep(2)
+        self.browser.find_element_by_class_name('add-to-cart').click()
+        time.sleep(2)
+        self.browser.find_element_by_class_name('cart').click()
+        time.sleep(2)
+        self.browser.find_element_by_link_text('+').click()
+        cart_items = self.browser.find_element_by_class_name('cart-length')
+        self.assertEquals(
+            cart_items.text,
+            '2'
+        )
+
+    def test_updating_number_of_products_in_cart(self):
+        self.browser.get(self.live_server_url)
+        time.sleep(2)
+        self.browser.find_element_by_class_name('button-frontpage').click()
+        time.sleep(2)
+        self.browser.find_element_by_class_name('add-to-cart').click()
+        time.sleep(2)
+        self.browser.find_element_by_class_name('cart').click()
+        time.sleep(2)
+        self.browser.find_element_by_link_text('+').click()
+        time.sleep(2)
+        self.browser.find_element_by_link_text('-').click()
+        cart_items = self.browser.find_element_by_class_name('cart-length')
+        self.assertEquals(
+            cart_items.text,
+            '1'
+        )
+
+    def test_cart_total_cost(self):
+        self.browser.get(self.live_server_url)
+        time.sleep(2)
+        self.browser.find_element_by_class_name('button-frontpage').click()
+        time.sleep(2)
+        self.browser.find_element_by_class_name('add-to-cart').click()
+        time.sleep(2)
+        self.browser.find_element_by_class_name('cart').click()
+        time.sleep(2)
+        self.browser.find_element_by_link_text('+').click()
+        time.sleep(2)
+        cart_total_cost = self.browser.find_element_by_class_name('total-cost')
+        self.assertEquals(
+            cart_total_cost.text,
+            '$200.00'
+        )
+
+    def test_removing_product_from_cart(self):
+        self.browser.get(self.live_server_url)
+        time.sleep(2)
+        self.browser.find_element_by_class_name('button-frontpage').click()
+        time.sleep(2)
+        self.browser.find_element_by_class_name('add-to-cart').click()
+        time.sleep(2)
+        self.browser.find_element_by_class_name('cart').click()
+        time.sleep(2)
+        self.browser.find_element_by_class_name('delete').click()
+        cart_text = self.browser.find_element_by_class_name('cart-empty')
+        self.assertEquals(
+            cart_text.text,
+            "YOU DON'T HAVE ANY PRODUCTS IN YOUR CART!"
         )

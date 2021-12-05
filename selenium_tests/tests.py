@@ -333,3 +333,66 @@ class UrbanTest(StaticLiveServerTestCase):
             cart_text.text,
             "YOU DON'T HAVE ANY PRODUCTS IN YOUR CART!"
         )
+
+    def test_stripe_payment(self):
+        self.browser.get(self.live_server_url)
+        time.sleep(2)
+        self.browser.find_element_by_class_name('button-frontpage').click()
+        time.sleep(2)
+        self.browser.find_element_by_class_name('add-to-cart').click()
+        time.sleep(2)
+        self.browser.find_element_by_class_name('cart').click()
+        time.sleep(2)
+        first_name = self.browser.find_element_by_name('first_name')
+        last_name = self.browser.find_element_by_name('last_name')
+        email = self.browser.find_element_by_name('email')
+        phone = self.browser.find_element_by_name('phone')
+        address = self.browser.find_element_by_name('address')
+        zipcode = self.browser.find_element_by_name('zipcode')
+        place = self.browser.find_element_by_name('place')
+        first_name.send_keys('maciej')
+        last_name.send_keys('jaroszewski')
+        email.send_keys('mj@gmail.com')
+        phone.send_keys('123456789')
+        address.send_keys('poznan')
+        zipcode.send_keys('32145')
+        place.send_keys('poland')
+        iframe = self.browser.find_element_by_tag_name('iframe')
+        self.browser.switch_to.frame(iframe)
+        cardnumber = self.browser.find_element_by_name('cardnumber')
+        exp_date = self.browser.find_element_by_name('exp-date')
+        cvc = self.browser.find_element_by_name('cvc')
+        cardnumber.send_keys('4242424242424242')
+        time.sleep(2)
+        postal = self.browser.find_element_by_name('postal')
+        exp_date.send_keys('1123')
+        cvc.send_keys('765')
+        postal.send_keys('32145')
+        self.browser.switch_to.default_content()
+        self.browser.find_element_by_class_name('checkout-button').click()
+        time.sleep(10)
+
+        self.assertEquals(
+            self.browser.title,
+            'Success | URBAN STYLE'
+        )
+
+    
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+      
+
+    

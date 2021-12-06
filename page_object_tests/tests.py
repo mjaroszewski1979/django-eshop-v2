@@ -10,7 +10,7 @@ from django.urls import reverse
 class UrbanTest(StaticLiveServerTestCase):
 
     def setUp(self):
-        self.driver =  webdriver.Chrome('selenium_tests/chromedriver.exe')
+        self.driver =  webdriver.Chrome('page_object_tests/chromedriver.exe')
         
         self.driver.set_window_size(1920, 1080)
         self.new_category = Category.objects.create(title='shoes', slug='shoes')

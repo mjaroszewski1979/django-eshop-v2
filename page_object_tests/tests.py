@@ -10,17 +10,17 @@ from django.urls import reverse
 class UrbanTest(StaticLiveServerTestCase):
 
     def setUp(self):
-        self.driver =  webdriver.Chrome('page_object_tests/chromedriver.exe')
+        self.driver =  webdriver.Chrome('selenium_tests/chromedriver.exe')
         
         self.driver.set_window_size(1920, 1080)
         self.new_category = Category.objects.create(title='shoes', slug='shoes')
         self.new_category.save()
-        credentials={
+        self.credentials={
         'username' : 'maciej',
         'password1' : 'jaroszewski123',
         'password2' : 'jaroszewski123'
     }
-        self.form = UserCreationForm(credentials)
+        self.form = UserCreationForm(self.credentials)
         self.user = self.form.save()
         self.new_vendor = Vendor.objects.create(name=self.user.username, created_by=self.user)
         self.pk =self.new_vendor.id
@@ -66,9 +66,21 @@ class UrbanTest(StaticLiveServerTestCase):
         assert main_page.is_vendors_link_works(vendors)
         
         main_page.execute_search()
-        search_results_page = page.SearchResultsPage(self.driver)
+        search_results_page = page.SearchPage(self.driver)
         assert search_results_page.is_results_found()
-    
+
+    def test_login_page(self):
+        self.driver.get('%s%s' % (self.live_server_url, '/vendors/login/'))
+        login_page = page.LoginPage(self.driver)
+        login_page.execute_login(self.credentials['username'], self.credentials['password1'])
+        assert login_page.is_login_works()
+
+    def test_logout_page(self):
+        self.driver.get('%s%s' % (self.live_server_url, '/vendors/login/'))
+        logout_page = page.LogoutPage(self.driver)
+        logout_page.execute_login(self.credentials['username'], self.credentials['password1'])
+        logout_page.logout()
+        assert logout_page.is_logout_works(self.driver.title)
 
 
     

@@ -15,3 +15,17 @@ class SearchPageLocators(object):
 
     SEARCH_TERM = (By.CLASS_NAME, 'search-term')
 
+class LoginPageLocators(object):
+
+    USERNAME = (By.NAME, 'username')
+    PASSWORD = (By.NAME, 'password')
+    LOGIN_BUTTON = (By.CLASS_NAME, 'vendor-login')
+
+class LogoutPageLocators(object):
+
+    LOGOUT = (By.CLASS_NAME, 'logout')
+
+class VendorAdmiPageLocators(object):
+
+    VENDOR_ADMIN = (By.CLASS_NAME, 'vendor-admin')
+

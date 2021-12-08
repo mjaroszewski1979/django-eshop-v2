@@ -28,4 +28,12 @@ class LogoutPageLocators(object):
 class VendorAdmiPageLocators(object):
 
     VENDOR_ADMIN = (By.CLASS_NAME, 'vendor-admin')
+    EDIT_VENDOR = (By.CLASS_NAME, 'edit-vendor')
+    VENDOR_EMAIL = (By.NAME, 'email')
+    EDIT_BUTTON = (By.CLASS_NAME, 'edit-save')
+    VENDORS_EMAILS = (By.TAG_NAME, 'address')
 
+class CartPageLocators(object):
+
+    ADD_TO_CART = (By.CLASS_NAME, 'add-to-cart')
+    CART = (By.CLASS_NAME, 'cart')

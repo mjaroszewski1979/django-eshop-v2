@@ -82,113 +82,17 @@ class UrbanTest(StaticLiveServerTestCase):
         logout_page.logout()
         assert logout_page.is_logout_works(self.driver.title)
 
+    def test_vendor_admin_page(self):
+        self.driver.get('%s%s' % (self.live_server_url, '/vendors/login/'))
+        vendor_admin = page.VendorAdminPage(self.driver)
+        vendor_admin.execute_login(self.credentials['username'], self.credentials['password1'])
+        new_email = 'maciej@gmail.com'
+        vendor_admin.edit_vendor_email(new_email)
+        assert vendor_admin.is_edit_vendor_works(self.driver.title)
+        vendor_admin.click_vendors_link()
+        assert vendor_admin.is_new_email_in_vendors_list(new_email)
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait as W
-from selenium.webdriver.support import expected_conditions as E
-import time
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.urls import reverse
-from product.models import Product, Category
-from django.contrib.auth.forms import UserCreationForm
-from vendor.models import Vendor
-from .main import MainPage 
-
-
-class UrbanTest(StaticLiveServerTestCase):
-
-    def setUp(self):
-        self.driver = webdriver.Chrome('selenium_tests/chromedriver.exe')
-        self.driver.set_window_size(1920, 1080)
-        self.wait = W(self.driver, 5)
-        self.new_category = Category.objects.create(title='shoes', slug='shoes')
-        self.new_category.save()
-        credentials={
-        'username' : 'maciej',
-        'password1' : 'jaroszewski123',
-        'password2' : 'jaroszewski123'
-    }
-        self.form = UserCreationForm(credentials)
-        self.user = self.form.save()
-        self.new_vendor = Vendor.objects.create(name=self.user.username, created_by=self.user)
-        self.pk =self.new_vendor.id
-        self.new_vendor.save()
-        self.vendor_1 = Vendor.objects.get(id=self.pk)
-        self.new_product = Product(
-            category = self.new_category,
-            vendor = self.vendor_1,
-            title = 'nike',
-            slug = 'nike',
-            description = 'red snickers',
-            price = 100
-        )
-        self.new_product.save()
-
-
-
-    def tearDown(self):
-        self.driver.close()
-
-
-    def test_frontpage_view_is_displayed(self):
+    def test_cart_page(self):
         self.driver.get(self.live_server_url)
-        mp = MainPage(self.driver)
-        self.assertEquals(
-            mp.newest_products.text,
-            "NEWEST PRODUCTS"
-        )
-        self.assertEquals(
-            mp.product_price.text,
-            (str(self.new_product.price) + '.00')
-        )
-
-    def test_frontpage_view_button(self):
-        self.driver.get(self.live_server_url)
-        mp = MainPage(self.driver)
-        self.wait.until(E.element_to_be_clickable(mp.button_frontpage)).click()
-        product_url = self.live_server_url + reverse('product',args= (self.new_category.slug, self.new_product.slug))
-        self.assertEquals(
-            self.driver.current_url,
-            product_url
-        )
-        
-    def test_frontpage_category_link(self):
-        self.driver.get(self.live_server_url)
-        mp = MainPage(self.driver)
-        self.wait.until(E.element_to_be_clickable(mp.category_item)).click()
-        category_url = self.live_server_url + reverse('category', args=(self.new_category.slug, ))
-        self.assertEquals(
-            self.driver.current_url,
-            category_url
-        )'''
+        cart_page = page.CartPage(self.driver)
+        assert cart_page.is_adding_to_cart_works()

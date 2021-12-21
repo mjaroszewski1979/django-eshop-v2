@@ -96,3 +96,12 @@ class UrbanTest(StaticLiveServerTestCase):
         self.driver.get(self.live_server_url)
         cart_page = page.CartPage(self.driver)
         assert cart_page.is_adding_to_cart_works()
+        assert cart_page.is_increasing_number_of_items_in_cart_works()
+        assert cart_page.is_decreasing_number_of_items_in_cart_works()
+        assert cart_page.is_total_cost_works()
+        assert cart_page.is_removing_item_from_cart_works()
+        
+    def test_stripe_payment(self):
+        self.driver.get(self.live_server_url)
+        cart_page = page.CartPage(self.driver)
+        assert cart_page.is_stripe_payment_works()

@@ -15,7 +15,11 @@
 * Relying on Cloudinary to provide a secure and comprehensive API for easily uploading media files from server-side code
 * Storing app’s secure credentials in environment variables
 * Utilizing setUpModule() to handle especially expensive setup operations for all of the tests within a module
-* Performing extensive selenium tests using 'page object pattern' instead of making raw WebDriver calls - pages are represented as classes with locator attributes and interaction methods 
+* Performing extensive selenium tests using 'page object pattern' instead of making raw WebDriver calls to have cleaner code:
+  * Utilizing DRY (Don’t repeat yourself) principle to minimize code duplication by having all ID-locators in one place
+  * Setting an interface between web page’s elements and tests
+  * Avoiding usage of WebDriver APIs in test methods
+  * Encapsulating the services of web pages, not only exposing their elements
 
 --------------------------------------------------
 

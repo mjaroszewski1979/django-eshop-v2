@@ -47,7 +47,20 @@ class BasePage(object):
     def click_add_to_cart_button(self):
         self.do_click(CartPageLocators.ADD_TO_CART)
 
- 
+    def add_to_cart(self):
+        self.click_view_button()
+        self.click_add_to_cart_button()
+
+    def find_cart_length(self):
+        cart_length = self.get_element_text(CartPageLocators.CART_LENGTH)
+        return cart_length
+
+    def switch_to_iframe(self):
+        iframe = self.get_element(CartPageLocators.IFRAME)
+        self.driver.switch_to.frame(iframe)
+
+    def switch_to_default_content(self):
+        self.driver.switch_to.default_content()
 
 
 
@@ -120,7 +133,47 @@ class VendorAdminPage(BasePage):
 class CartPage(BasePage):
 
     def is_adding_to_cart_works(self):
-        self.click_view_button()
-        self.click_add_to_cart_button()
+        self.add_to_cart()
         self.click_cart_link()
         return 'Cart | URBAN STYLE' in self.driver.title
+
+    def is_increasing_number_of_items_in_cart_works(self):
+        self.do_click(CartPageLocators.PLUS)
+        cart_length = self.find_cart_length()
+        return int(cart_length) == 2
+
+    def is_decreasing_number_of_items_in_cart_works(self):
+        self.do_click(CartPageLocators.MINUS)
+        cart_length = self.find_cart_length()
+        return int(cart_length) == 1
+
+    def is_total_cost_works(self):
+        total_cost = self.get_element_text(CartPageLocators.TOTAL_COST)
+        return total_cost == '$100.00'
+
+    def is_removing_item_from_cart_works(self):
+        self.do_click(CartPageLocators.DELETE)
+        cart_empty = self.get_element_text(CartPageLocators.EMPTY)
+        return cart_empty == "YOU DON'T HAVE ANY PRODUCTS IN YOUR CART!"
+
+    def is_stripe_payment_works(self):
+        self.add_to_cart()
+        self.click_cart_link()
+        self.do_send_keys(CartPageLocators.FIRST_NAME, 'maciej')
+        self.do_send_keys(CartPageLocators.LAST_NAME, 'jaroszewski')
+        self.do_send_keys(CartPageLocators.EMAIL, 'mj@gmail.com')
+        self.do_send_keys(CartPageLocators.PHONE, '123456789')
+        self.do_send_keys(CartPageLocators.ADDRESS, 'poznan')
+        self.do_send_keys(CartPageLocators.ZIPCODE, '65321')
+        self.do_send_keys(CartPageLocators.PLACE, 'poland')
+        self.switch_to_iframe()
+        self.do_send_keys(CartPageLocators.CARDNUMBER, '4242424242424242')
+        self.do_send_keys(CartPageLocators.EXP_DATE, '1123')
+        self.do_send_keys(CartPageLocators.CVC, '765')
+        self.do_send_keys(CartPageLocators.POSTAL, '65321')
+        self.switch_to_default_content()
+        self.do_click(CartPageLocators.CHECKOUT_BUTTON)
+        time.sleep(5)
+        title = self.get_element_text(CartPageLocators.TITLE)
+        return title == 'THANKS FOR THE ORDER'
+        

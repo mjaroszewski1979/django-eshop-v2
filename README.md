@@ -53,7 +53,7 @@ coverage run -p manage.py test unit_tests && coverage run -p manage.py test sele
 ------------------------------------------------
 
 
-![caption](https://github.com/mjaroszewski1979/django-eshop-v2/blob/main/urban_style.gif)
+![caption](https://github.com/mjaroszewski1979/django-eshop-v2/blob/main/urban_mockup.png)
   
   Live | Code | Docker | Technologies
   ---- | ---- | ------ | ------------
